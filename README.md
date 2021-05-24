@@ -108,7 +108,7 @@ async def get_all_messages(channel):
             break
     return all_messages
 ```
-The `main()` fucntion, again, note that it is used with `async` statement
+The `main()` fucntion, again, note that it is used with `async` statement.
 
 
 
