@@ -13,6 +13,8 @@ To create Telegram application you need an account. Since you are registered, co
 ![](https://miro.medium.com/max/1400/1*TbQS21z5HkGY_tMd7CpbTw.png)
 
 4. Now create `config.ini` file. Open and edit it, so it look something like that. 
+ 
+NOTE! Creating a separate configuration file is optional! You can use regular variables, but using file is better in security purposes.
 ```Python
 [Telegram]
 # no need for quotes
@@ -58,7 +60,7 @@ api_id   = config['Telegram']['api_id']
 api_hash = config['Telegram']['api_hash']
 username = config['Telegram']['username']
 ```
-After that, create a Telegram client with respect to `api_id` and `api_hash`.
+After that, create a Telegram client with respect to `username`, `api_id` and `api_hash`.
 ```Python
 client = TelegramClient(username, api_id, api_hash)
 
@@ -108,7 +110,7 @@ async def get_all_messages(channel):
             break
     return all_messages
 ```
-The `main()` fucntion, again, note that it is used with `async` statement.
+The `main()` fucntion. Again, note that it is used with `async` statement.
 
 
 
