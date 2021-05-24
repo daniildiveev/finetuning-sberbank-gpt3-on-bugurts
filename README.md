@@ -112,7 +112,24 @@ async def get_all_messages(channel):
 ```
 The `main()` fucntion. Again, note that it is used with `async` statement.
 
+```Python
+async def main(): 
+    url  = 'https://t.me/bugurtthread' # Telegram channel url
+    channel = await client.get_entity(url)
+    messages = await get_all_messages(channel)
 
+    bugurt_dict = {'data': []}
+    for i in range(len(messages)):
+        bugurt_dict['data'].append({'text':messages[i]})
+    
+    #saving data as json
+    with open('bugurts.json', 'w', encoding='utf-8') as outfile:
+        json.dump(bugurt_dict, outfile, ensure_ascii = False)
+
+async with client:
+    await main()
+```
+After we've collected data, we dump it into json file to save it. There are about 32000 posts parsed in a few minutes. 
 
 
 
