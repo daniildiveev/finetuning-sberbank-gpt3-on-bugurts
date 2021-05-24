@@ -58,11 +58,57 @@ api_id   = config['Telegram']['api_id']
 api_hash = config['Telegram']['api_hash']
 username = config['Telegram']['username']
 ```
+After that, create a Telegram client with respect to `api_id` and `api_hash`.
+```Python
+client = TelegramClient(username, api_id, api_hash)
+
+client.start()
+```
+Okay, now we are ready to parse posts.
+
+NOTE! `telethon` is an asynchronous library, so everything will work only by using `async` statement.
 
 
+This is the function we'll use to collect data from telegram channel.
+```Python
+async def get_all_messages(channel):
+    '''Function to collect all "bugurts"'''
+    offset_msg = 0    # index of post to start with
+    limit_msg = 1000   # maximum number of messages to pass at once
 
-
-
+    all_messages = []   #all messages list
+    total_messages = 0
+    total_count_limit = 0  # change this value if you dont need all of the messages
+    
+    while True:
+        history = await client(GetHistoryRequest(
+            peer=channel,
+            offset_id=offset_msg,
+            offset_date=None, add_offset=0,
+            limit=limit_msg, max_id=0, min_id=0,
+            hash=0))
+        if not history.messages:
+            break
+        messages = history.messages
+        for message in messages:
+            if 'message' not in message.to_dict().keys(): continue
+            text = message.to_dict()['message']# the message is a dict with a lot of params, the message content is in the 'message'
+            text = text.split('\n')
+            for i in range(len(text)):
+            '''removing unnecessary  things
+                text[0] = text[0].replace('БУГУРТ-ТРЕД', '')
+                if ('.ru' in text[i]) or text[i] == '#БТnews': 
+                    text[i] = ''
+            text = ' '.join(text)
+            all_messages.append(text)
+        offset_msg = messages[len(messages) - 1].id
+        total_messages = len(all_messages)
+        print(f'{total_messages} / ± 32000 posts')
+        if total_count_limit != 0 and total_messages >= total_count_limit:
+            break
+    return all_messages
+```
+The `main()` fucntion, again, note that it is used with `async` statement
 
 
 
