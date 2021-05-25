@@ -44,7 +44,6 @@ NOTE! If you are a macOS user, use `pip3` instead of `pip`.
 `configparser` module is required to get our telegram application data(api_id, api_hash etc.)
 ```Python
 import configparser
-import json
 from telethon import TelegramClient
 ```
 Now lets open our `config.ini` by using `configparser` and get your login data.
@@ -117,20 +116,24 @@ async def main():
     url  = 'https://t.me/bugurtthread' # Telegram channel url
     channel = await client.get_entity(url)
     messages = await get_all_messages(channel)
-
-    bugurt_dict = {'data': []}
-    for i in range(len(messages)):
-        bugurt_dict['data'].append({'text':messages[i]})
-    
-    #saving data as json
-    with open('bugurts.json', 'w', encoding='utf-8') as outfile:
-        json.dump(bugurt_dict, outfile, ensure_ascii = False)
+   
+    #saving data to txt file
+    with open('bugurts.txt', 'w', encoding='utf-8') as outfile:
+        for i in range(len(messages)):
+            outfile.write(messages[i])
 
 async with client:
     await main()
 ```
-After we've collected data, we dump it into json file to save it. There are about 32000 posts parsed in a few minutes. 
+After we've collected data, we dump it into txt file to save it. There are about 32000 posts parsed in a few minutes.
 
+# Preparing model
+
+I am using [Sberbank's gpt-3 (medium)](https://huggingface.co/sberbank-ai/rugpt3medium_based_on_gpt2), since it's russian and easy to finetune.
+
+I load model using [Hugging Face repository](https://huggingface.co). 
+
+Firstly, lets download `transformers` library using `pip`(if you use macOS use `pip3` instead).
 
 
 
