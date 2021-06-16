@@ -172,9 +172,11 @@ def load_dataset(train_path,tokenizer):
 
 train_dataset, data_collator = load_dataset(train_path,tokenizer)
 ```
+If you did everything right, the output of `train_dataset[0]` should look similar to that:
 
+![](https://github.com/sexozavr/finetuning-sberbank-gpt3-on-bugurts/blob/main/dataset_sample.png)
 
-
+# Finetuning model
 
 
 
