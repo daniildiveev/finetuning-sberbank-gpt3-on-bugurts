@@ -127,7 +127,7 @@ async with client:
 ```
 After we've collected data, we dump it into txt file to save it. There are about 32000 posts parsed in a few minutes.
 
-# Preparing model
+## Preparing model
 
 I am using [Sberbank's gpt-3 (medium)](https://huggingface.co/sberbank-ai/rugpt3medium_based_on_gpt2), since it's russian and easy to finetune.
 
@@ -176,7 +176,7 @@ If you did everything right, the output of `train_dataset[0]` should look simila
 
 ![](https://github.com/sexozavr/finetuning-sberbank-gpt3-on-bugurts/blob/main/dataset_sample.png)
 
-# Finetuning model
+## Finetuning model
 
 
 
