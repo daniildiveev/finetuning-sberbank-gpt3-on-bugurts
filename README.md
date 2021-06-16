@@ -133,10 +133,22 @@ I am using [Sberbank's gpt-3 (medium)](https://huggingface.co/sberbank-ai/rugpt3
 
 I load model using [Hugging Face repository](https://huggingface.co). 
 
-Firstly, lets download `transformers` library using `pip`(if you use macOS use `pip3` instead).
+Firstly, lets download `transformers` library using `pip`(if you use macOS use `pip3` instead) and load pretrained transformer model.
 
+`datasets` library is used to create a dataset from our txt file.
+```Python
+#installing libs
+!pip install transformers
+!pip install datasets
 
+from transformers import AutoTokenizer, AutoModelWithLMHead
 
+#loading model and tokenizer
+tokenizer = AutoTokenizer.from_pretrained("sberbank-ai/rugpt3medium_based_on_gpt2")
+
+model = AutoModelWithLMHead.from_pretrained("sberbank-ai/rugpt3medium_based_on_gpt2")
+```
+Now we are ready to preprocess our data using datasets
 
 
 
