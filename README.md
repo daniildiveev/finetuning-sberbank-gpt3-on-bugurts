@@ -148,10 +148,30 @@ tokenizer = AutoTokenizer.from_pretrained("sberbank-ai/rugpt3medium_based_on_gpt
 
 model = AutoModelWithLMHead.from_pretrained("sberbank-ai/rugpt3medium_based_on_gpt2")
 ```
-Now we are ready to preprocess our data using datasets
+Now we are ready to preprocess our data using `datasets` modules (`DataCollatorForLanguageModelling` and `TextDataset`)
 
+Data collators are objects that will form a batch by using a list of dataset elements as input. 
 
+`TextDataset` is used to convert txt file to dataset for finetuning our model.
 
+```Python
+from transformers import TextDataset, DataCollatorForLanguageModeling
+
+train_path = 'drive/My Drive/bugurts.txt' #path to txt dataset file
+
+def load_dataset(train_path,tokenizer):
+    train_dataset = TextDataset(
+          tokenizer=tokenizer,
+          file_path=train_path,
+          block_size=128)
+
+    data_collator = DataCollatorForLanguageModeling(
+        tokenizer=tokenizer, mlm=False,
+    )
+    return train_dataset, data_collator
+
+train_dataset, data_collator = load_dataset(train_path,tokenizer)
+```
 
 
 
