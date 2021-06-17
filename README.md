@@ -202,7 +202,9 @@ trainer = Trainer(
     train_dataset=train_dataset,
 )
 ```
-You can use different params for both `Trainer` and `TrainingArguments`. Just remember transformer's big boy, dont forget about ram and your disk capability.
+You can use different params for both `Trainer` and `TrainingArguments`. Just remember transformer's big boy, dont forget about your ram and disk capabilities.
+
+After these actions, just run `trainer.train()`.
 
 
 
