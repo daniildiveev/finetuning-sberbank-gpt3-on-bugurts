@@ -178,7 +178,31 @@ If you did everything right, the output of `train_dataset[0]` should look simila
 
 ## Finetuning model
 
+Okay, now we are ready for the main part: training our model.
 
+For this action we are going to use `Trainer` and `TrainingArguments` modules.
+
+```Python
+from transformers import Trainer, TrainingArguments, AutoModelWithLMHead
+
+training_args = TrainingArguments(
+    output_dir = "./gpt3-bugurts", #The output directory
+    overwrite_output_dir = True, #overwrite the content of the output directory
+    num_train_epochs = 5, # number of trainig epochs
+    per_device_train_batch_size = 8, # batch size for training
+    save_steps = 7000, # after steps model is saved
+    warmup_steps = 500,# number of warmup steps for learning rate scheduler
+    prediction_loss_only = True,
+    )
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    data_collator=data_collator,
+    train_dataset=train_dataset,
+)
+```
+You can use different params for both `Trainer` and `TrainingArguments`. Just remember transformer's big boy, dont forget about ram and your disk capability.
 
 
 
