@@ -230,6 +230,13 @@ That wraps it up for the finetuning, now lets see how our model performs.
 
 After you successfully finetuned model, you can generate text(bugurts).
 
+Before generating, dont forget to switch your model to last checkpoint save.
+
+That is done by running:
+```Python
+model = AutoModelWithLMHead.from_pretrained('/content/gpt3-bugurts/checkpoint-<your_last_checkpoint_step>')
+```
+
 To generate samples easily in one line i wrapped the whole generation process in the `model_generate` function.
 
 ```Python
