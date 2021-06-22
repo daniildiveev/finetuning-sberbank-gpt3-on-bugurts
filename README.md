@@ -251,6 +251,14 @@ To generate text simply pass your model, start token (the text you want model to
 
 NOTE! Be careful to play with `repetition_penalty` parameter, if you are scared, just set it to 1.0. 
 
+## Saving model
 
+If you are interested in your sanity and your time managment, you better save your model, since the whole finetuning process takes a few hours.
 
+To do this, simply run the following command:
 
+```Python
+model.save_pretrained('drive/My Drive/bugurt_gpt-3/', save_config=True, save_function=torch.save)
+```
+
+That's it!
