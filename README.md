@@ -96,9 +96,9 @@ async def get_all_messages(channel):
             text = message.to_dict()['message']# the message is a dict with a lot of params, the message content is in the 'message'
             text = text.split('\n')
             for i in range(len(text)):
-            '''removing unnecessary  things
+            #removing unnecessary  things
                 text[0] = text[0].replace('БУГУРТ-ТРЕД', '')
-                if ('.ru' in text[i]) or text[i] == '#БТnews': 
+                if ('https' in text[i]) or text[i] == '#БТnews': 
                     text[i] = ''
             text = ' '.join(text)
             all_messages.append(text)
@@ -188,7 +188,7 @@ from transformers import Trainer, TrainingArguments, AutoModelWithLMHead
 training_args = TrainingArguments(
     output_dir = "./gpt3-bugurts", #The output directory
     overwrite_output_dir = True, #overwrite the content of the output directory
-    num_train_epochs = 5, # number of trainig epochs
+    num_train_epochs = 10, # number of trainig epochs
     per_device_train_batch_size = 8, # batch size for training
     save_steps = 7000, # after steps model is saved
     warmup_steps = 500,# number of warmup steps for learning rate scheduler
@@ -206,7 +206,50 @@ You can use different params for both `Trainer` and `TrainingArguments`. Just re
 
 After these actions, just run `trainer.train()`.
 
+You will get something like that:
 
+Step|Training loss|
+-----|-------------|
+500	 |     2.719400|
+1000 |     2.574300|
+1500	|     2.518100|
+2000	|     2.461900|
+2500	|     2.461900|
+3000	|     2.425500|
+3500	|     2.402100|
+4000	|     2.381200|
+4500	|     2.202700|
+5000	|     2.203200|
+5500	|     2.206700|
+6000	|     2.203400|
+.... |.........    |
+
+That wraps it up for the finetuning, now lets see how our model performs.
+
+## Generating with model
+
+After you successfully finetuned model, you can generate text(bugurts).
+
+To generate samples easily in one line i wrapped the whole generation process in the `model_generate` function.
+
+```Python
+def model_generate(model, start_token:str,repetition_penalty = 1.) -> str:
+    start_token = start_token.upper()
+
+    tokenized_text = tokenizer.encode(start_token, return_tensors='pt')
+    greedy_output = model.generate(tokenized_text, 
+                                max_length=200, 
+                                do_sample=True, 
+                                repetition_penalty=repetition_penalty)
+    result = tokenizer.decode(greedy_output[0])
+    result = result.split('@')
+
+    return '@\n'.join([result[i] + ' \n' for i in range(len(result))])
+```
+
+To generate text simply pass your model, start token (the text you want model to continue) and repeptition penalty argument (this parameter will penalty model with certain value if model generates something that already had been generated) to `model_generate` function.
+
+NOTE! Be careful to play with `repetition_penalty` parameter, if you are scared, just set it to 1.0. 
 
 
 
