@@ -254,7 +254,7 @@ def model_generate(model, start_token:str,repetition_penalty = 1.) -> str:
     return '@\n'.join([result[i] + ' \n' for i in range(len(result))])
 ```
 
-To generate text simply pass your model, start token (the text you want model to continue) and repeptition penalty argument (this parameter will penalty model with certain value if model generates something that already had been generated) to `model_generate` function.
+To generate text simply pass your model, start token (the text you want model to continue) and repeptition penalty argument (this parameter will penalty model with certain value if model generates something that has already been generated) to `model_generate` function.
 
 NOTE! Be careful to play with `repetition_penalty` parameter, if you are scared, just set it to 1.0. 
 
