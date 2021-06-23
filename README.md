@@ -183,7 +183,7 @@ Okay, now we are ready for the main part: training our model.
 For this action we are going to use `Trainer` and `TrainingArguments` modules.
 
 ```Python
-from transformers import Trainer, TrainingArguments, AutoModelWithLMHead
+from transformers import Trainer, TrainingArguments
 
 training_args = TrainingArguments(
     output_dir = "./gpt3-bugurts", #The output directory
@@ -268,4 +268,19 @@ To do this, simply run the following command:
 model.save_pretrained('drive/My Drive/bugurt_gpt-3/', save_config=True, save_function=torch.save)
 ```
 
-That's it!
+## Some generated texts
+
+Here is what my model generated:
+
+|Start token|Generated text|
+|----|--------|
+|ЕДЕТЕ С БАТЕЙ НА ДЕВЯТКЕ @|ЕДЕТЕ С БАТЕЙ НА ДЕВЯТКЕ @  ВАС ЗАБИРАЮТ В АРМИЮ @  ТЫ СТАРАЕШЬСЯ НЕ ЗАМЕЧАТЬ ВСЕХ ЭТИХ ПРИКОЛОВ @  ВЕДЬ ТЫ СЫЧ @  И ТЕБЕ ВСЕГО 13|
+|ЯЙЦА @ |ЯЙЦА @  ИДЕШЬ В МАГАЗИН @  ПОКУПАЕШЬ САМЫЙ ДЕШЁВЫЙ КОМПЛЮКТЕР @  ВМЕСТО ТЕЛЕФОНА ТЕЛЕФОН @  ВМЕСТО ТЕЛЕФОНА ШТАНЫ|
+|ТИКТОКЕРЫ @ |ТИКТОКЕРЫ @  СЧИТАЮТ ЧТО ИМ ВСЕ РАВНО НА ЛЮДЕЙ @  ИХ ЖЕСТОКОСТЬ И ОСКОРБЛЕНИЕ СТАЛО БОЛЬШИМ ИЗ-ЗА ТОГО ЧТО ОНИ СТАЛИ БОЛЕЕ ЧЕМ НИЧЕМ|
+|ТЯН |ТЯН ПРЕДЛАГАЕТ ВСТРЕЧАТЬСЯ @  ТЫ СОГЛАШАЕШЬСЯ @  ВСТРЕЧАЕТЕСЬ @  ТЫ УЖЕ ПРЕДСТАВЛЯЕШЬ КАК БУДЕШЬ ЛАМПОВО НЯШИТЬСЯ С ЕОТ @  НО ЕХИДНАЯ ЕРОХИНСОН ТАК НЕ ДУМАЕТ|
+
+NOTE! Your model could (and probably will) generate different things with same start tokens.
+
+If you arent russian you probably cannot understand the quality and context of these text, but trust me it's not that bad.
+
+That's it! Dont forget to star <3
